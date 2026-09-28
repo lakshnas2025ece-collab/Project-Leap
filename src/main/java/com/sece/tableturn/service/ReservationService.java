@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sece.tableturn.exception.BusinessRuleException;
 import com.sece.tableturn.entity.Customer;
 import com.sece.tableturn.entity.Reservation;
 import com.sece.tableturn.entity.RestaurantTable;
@@ -33,15 +34,15 @@ public class ReservationService {
                 .orElse(null);
 
         if (table == null) {
-            throw new RuntimeException("Table not found");
+            throw new BusinessRuleException("Table not found");
         }
 
         if (!"FREE".equalsIgnoreCase(table.getStatus())) {
-            throw new RuntimeException("Table is not free");
+            throw new BusinessRuleException("Table is not free");
         }
 
         if (reservation.getPartySize() > table.getCapacity()) {
-            throw new RuntimeException("Party size exceeds table capacity");
+            throw new BusinessRuleException("Party size exceeds table capacity");
         }
 
         List<Reservation> existingReservations =
@@ -53,7 +54,7 @@ public class ReservationService {
                                 reservation.getStartTime());
 
         if (!existingReservations.isEmpty()) {
-            throw new RuntimeException("Table is already reserved for this time");
+            throw new BusinessRuleException("Table is already reserved for this time");
         }
 
         if (reservation.getCustomer() != null) {
@@ -63,7 +64,7 @@ public class ReservationService {
                     .orElse(null);
 
             if (customer == null) {
-                throw new RuntimeException("Customer not found");
+                throw new BusinessRuleException("Customer not found");
             }
 
             reservation.setCustomer(customer);
