@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TableTurn - Restaurant Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">T</div>
+
+            <div>
+                <h2>TableTurn</h2>
+                <span>Restaurant Management</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" onclick="showPage('dashboard', this)">
+                Dashboard
+            </button>
+
+            <button class="nav-item" onclick="showPage('tables', this)">
+                Tables
+            </button>
+
+            <button class="nav-item" onclick="showPage('customers', this)">
+                Customers
+            </button>
+
+            <button class="nav-item" onclick="showPage('reservations', this)">
+                Reservations
+            </button>
+
+            <button class="nav-item" onclick="showPage('orders', this)">
+                Orders
+            </button>
+
+            <button class="nav-item" onclick="showPage('billing', this)">
+                Billing
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span>TableTurn</span>
+            <small>Restaurant Table & Order System</small>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="page-title">Dashboard</h1>
+                <p id="page-subtitle">
+                    Overview of your restaurant
+                </p>
+            </div>
+
+            <div class="header-status">
+                <span class="status-dot"></span>
+                Backend Connected
+            </div>
+
+        </header>
+
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active-page">
+
+            <div class="welcome-card">
+
+                <div>
+                    <p class="eyebrow">RESTAURANT MANAGEMENT</p>
+
+                    <h2>Welcome to TableTurn</h2>
+
+                    <p>
+                        Manage tables, reservations, orders and billing
+                        from one place.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    🍽️
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span class="stat-label">Total Tables</span>
+                    <strong id="total-tables">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Free Tables</span>
+                    <strong id="free-tables">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Occupied Tables</span>
+                    <strong id="occupied-tables">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Reservations</span>
+                    <strong id="total-reservations">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Table Status</h3>
+                            <p>Current restaurant table availability</p>
+                        </div>
+                    </div>
+
+                    <div id="dashboard-tables" class="table-mini-grid">
+                        <p class="loading">Loading tables...</p>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Common restaurant operations</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button onclick="openPage('tables')">
+                            <span>🪑</span>
+                            Manage Tables
+                        </button>
+
+                        <button onclick="openPage('reservations')">
+                            <span>📅</span>
+                            New Reservation
+                        </button>
+
+                        <button onclick="openPage('orders')">
+                            <span>🧾</span>
+                            Manage Orders
+                        </button>
+
+                        <button onclick="openPage('billing')">
+                            <span>💳</span>
+                            Generate Bill
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tables -->
+        <section id="tables" class="page">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Restaurant Tables</h2>
+                    <p>View and manage table availability.</p>
+                </div>
+
+                <button class="primary-btn" onclick="loadTables()">
+                    Refresh Tables
+                </button>
+
+            </div>
+
+            <div id="tables-container" class="cards-grid">
+                <p class="loading">Loading tables...</p>
+            </div>
+
+        </section>
+
+
+        <!-- Customers -->
+        <section id="customers" class="page">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Customers</h2>
+                    <p>Manage restaurant customers.</p>
+                </div>
+
+            </div>
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Add Customer</h3>
+                    </div>
+
+                    <form id="customer-form">
+
+                        <label>Name</label>
+
+                        <input
+                            type="text"
+                            id="customer-name"
+                            placeholder="Enter customer name"
+                            required
+                        >
+
+                        <label>Phone</label>
+
+                        <input
+                            type="text"
+                            id="customer-phone"
+                            placeholder="Enter phone number"
+                            required
+                        >
+
+                        <button class="primary-btn" type="submit">
+                            Add Customer
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Customer List</h3>
+                    </div>
+
+                    <div id="customers-container">
+                        <p class="loading">Loading customers...</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Reservations -->
+        <section id="reservations" class="page">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Reservations</h2>
+                    <p>Reserve tables for customers.</p>
+                </div>
+
+            </div>
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Create Reservation</h3>
+                    </div>
+
+                    <form id="reservation-form">
+
+                        <label>Customer</label>
+
+                        <select id="reservation-customer" required>
+                            <option value="">Select customer</option>
+                        </select>
+
+
+                        <label>Table</label>
+
+                        <select id="reservation-table" required>
+                            <option value="">Select table</option>
+                        </select>
+
+
+                        <label>Date</label>
+
+                        <input
+                            type="date"
+                            id="reservation-date"
+                            required
+                        >
+
+
+                        <div class="two-column">
+
+                            <div>
+
+                                <label>Start Time</label>
+
+                                <input
+                                    type="time"
+                                    id="reservation-start"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label>End Time</label>
+
+                                <input
+                                    type="time"
+                                    id="reservation-end"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <label>Party Size</label>
+
+                        <input
+                            type="number"
+                            id="party-size"
+                            min="1"
+                            placeholder="Number of guests"
+                            required
+                        >
+
+
+                        <button class="primary-btn" type="submit">
+                            Create Reservation
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Reservation List</h3>
+                    </div>
+
+                    <div id="reservations-container">
+                        <p class="loading">Loading reservations...</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Orders -->
+        <section id="orders" class="page">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Orders</h2>
+                    <p>Create orders and add food items to occupied tables.</p>
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Create Order</h3>
+                    </div>
+
+                    <form id="order-form">
+
+                        <label>Table</label>
+
+                        <select id="order-table" required>
+                            <option value="">Select occupied table</option>
+                        </select>
+
+                        <button class="primary-btn" type="submit">
+                            Create Order
+                        </button>
+
+                    </form>
+
+
+                    <div id="new-order-result"></div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <h3>Add Order Item</h3>
+                    </div>
+
+                    <form id="order-item-form">
+
+                        <label>Order ID</label>
+
+                        <input
+                            type="number"
+                            id="item-order-id"
+                            placeholder="Enter order ID"
+                            required
+                        >
+
+
+                        <label>Item Name</label>
+
+                        <input
+                            type="text"
+                            id="item-name"
+                            placeholder="e.g. Chicken Biriyani"
+                            required
+                        >
+
+
+                        <div class="two-column">
+
+                            <div>
+
+                                <label>Quantity</label>
+
+                                <input
+                                    type="number"
+                                    id="item-quantity"
+                                    min="1"
+                                    value="1"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label>Price</label>
+
+                                <input
+                                    type="number"
+                                    id="item-price"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="₹"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <button class="primary-btn" type="submit">
+                            Add Item
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel order-list-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>Orders</h3>
+                        <p>Current and previous restaurant orders.</p>
+                    </div>
+
+                    <button class="secondary-btn" onclick="loadOrders()">
+                        Refresh
+                    </button>
+                </div>
+
+                <div id="orders-container">
+                    <p class="loading">Loading orders...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Billing -->
+        <section id="billing" class="page">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Billing</h2>
+                    <p>Generate the final bill for a table.</p>
+                </div>
+
+            </div>
+
+
+            <div class="billing-box">
+
+                <div class="billing-icon">
+                    💳
+                </div>
+
+                <h3>Generate Table Bill</h3>
+
+                <p>
+                    Select an occupied table with open orders
+                    to generate the final bill.
+                </p>
+
+
+                <select id="billing-table">
+                    <option value="">Select table</option>
+                </select>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="generateBill()"
+                >
+                    Generate Bill
+                </button>
+
+            </div>
+
+
+            <div id="bill-result" class="bill-result"></div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>Previous Bills</h3>
+                        <p>Generated restaurant bills.</p>
+                    </div>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="loadBills()"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+                <div id="bills-container">
+                    <p class="loading">Loading bills...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
