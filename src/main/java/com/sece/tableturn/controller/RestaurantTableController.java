@@ -49,4 +49,9 @@ public class RestaurantTableController {
     public void deleteTable(@PathVariable Long id) {
         restaurantTableService.deleteTable(id);
     }
+
+    @PutMapping("/{id}/seat")
+    public RestaurantTable seatTable(@PathVariable Long id) {
+        return restaurantTableService.seatTable(id);
+    }
 }

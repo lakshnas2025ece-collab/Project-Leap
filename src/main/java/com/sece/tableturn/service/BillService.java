@@ -41,10 +41,12 @@ public class BillService {
             throw new BusinessRuleException("Table not found");
         }
 
-        List<Order> orders = orderRepository.findByTable(table);
+        List<Order> orders =
+                orderRepository.findByTableAndStatus(table, "OPEN");
 
         if (orders.isEmpty()) {
-            throw new BusinessRuleException("No orders found for this table");
+            throw new BusinessRuleException(
+                    "No open orders found for this table");
         }
 
         double total = 0;

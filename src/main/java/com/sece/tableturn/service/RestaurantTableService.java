@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sece.tableturn.entity.RestaurantTable;
+import com.sece.tableturn.exception.BusinessRuleException;
 import com.sece.tableturn.repository.RestaurantTableRepository;
 
 @Service
@@ -44,5 +45,24 @@ public class RestaurantTableService {
 
     public void deleteTable(Long id) {
         restaurantTableRepository.deleteById(id);
+    }
+
+    public RestaurantTable seatTable(Long id) {
+
+        RestaurantTable table = restaurantTableRepository
+                .findById(id)
+                .orElse(null);
+
+        if (table == null) {
+            throw new BusinessRuleException("Table not found");
+        }
+
+        if ("OCCUPIED".equalsIgnoreCase(table.getStatus())) {
+            throw new BusinessRuleException("Table is already occupied");
+        }
+
+        table.setStatus("OCCUPIED");
+
+        return restaurantTableRepository.save(table);
     }
 }

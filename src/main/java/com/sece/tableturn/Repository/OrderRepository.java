@@ -10,4 +10,8 @@ import com.sece.tableturn.entity.RestaurantTable;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByTable(RestaurantTable table);
+
+    List<Order> findByTableAndStatus(
+            RestaurantTable table,
+            String status);
 }
