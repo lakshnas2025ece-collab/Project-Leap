@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import com.sece.tableturn.entity.Order;
 import com.sece.tableturn.service.OrderService;
 
@@ -21,7 +23,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public Order createOrder(@RequestBody Order order) {
+    public Order createOrder(
+            @Valid @RequestBody Order order) {
+
         return orderService.createOrder(order);
     }
 

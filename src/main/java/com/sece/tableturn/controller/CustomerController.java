@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import com.sece.tableturn.entity.Customer;
 import com.sece.tableturn.service.CustomerService;
 
@@ -22,7 +24,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
+    public Customer createCustomer(
+            @Valid @RequestBody Customer customer) {
+
         return customerService.createCustomer(customer);
     }
 

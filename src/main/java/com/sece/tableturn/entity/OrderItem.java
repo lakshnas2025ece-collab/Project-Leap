@@ -5,6 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class OrderItem {
@@ -13,10 +17,16 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Item name is required")
     private String itemName;
+
+    @Positive(message = "Quantity must be greater than zero")
     private int quantity;
+
+    @PositiveOrZero(message = "Price cannot be negative")
     private double price;
 
+    @NotNull(message = "Order is required")
     @ManyToOne
     private Order order;
 

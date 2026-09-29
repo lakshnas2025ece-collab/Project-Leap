@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import com.sece.tableturn.entity.Reservation;
 import com.sece.tableturn.service.ReservationService;
 
@@ -23,14 +25,13 @@ public class ReservationController {
 
     @PostMapping
     public Reservation createReservation(
-            @RequestBody Reservation reservation) {
+            @Valid @RequestBody Reservation reservation) {
 
         return reservationService.createReservation(reservation);
     }
 
     @GetMapping
     public List<Reservation> getAllReservations() {
-
         return reservationService.getAllReservations();
     }
 

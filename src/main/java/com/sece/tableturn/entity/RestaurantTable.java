@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class RestaurantTable {
@@ -12,8 +14,13 @@ public class RestaurantTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Positive(message = "Table number must be greater than zero")
     private int tableNumber;
+
+    @Positive(message = "Table capacity must be greater than zero")
     private int capacity;
+
+    @NotBlank(message = "Table status is required")
     private String status;
 
     public RestaurantTable() {
@@ -39,11 +46,11 @@ public class RestaurantTable {
         this.capacity = capacity;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

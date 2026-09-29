@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import com.sece.tableturn.entity.RestaurantTable;
 import com.sece.tableturn.service.RestaurantTableService;
 
@@ -23,7 +25,9 @@ public class RestaurantTableController {
     private RestaurantTableService restaurantTableService;
 
     @PostMapping
-    public RestaurantTable createTable(@RequestBody RestaurantTable table) {
+    public RestaurantTable createTable(
+            @Valid @RequestBody RestaurantTable table) {
+
         return restaurantTableService.createTable(table);
     }
 
@@ -40,7 +44,7 @@ public class RestaurantTableController {
     @PutMapping("/{id}")
     public RestaurantTable updateTable(
             @PathVariable Long id,
-            @RequestBody RestaurantTable table) {
+            @Valid @RequestBody RestaurantTable table) {
 
         return restaurantTableService.updateTable(id, table);
     }
@@ -48,10 +52,5 @@ public class RestaurantTableController {
     @DeleteMapping("/{id}")
     public void deleteTable(@PathVariable Long id) {
         restaurantTableService.deleteTable(id);
-    }
-
-    @PutMapping("/{id}/seat")
-    public RestaurantTable seatTable(@PathVariable Long id) {
-        return restaurantTableService.seatTable(id);
     }
 }

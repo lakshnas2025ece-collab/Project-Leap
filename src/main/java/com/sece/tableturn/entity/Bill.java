@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Bill {
@@ -21,6 +22,7 @@ public class Bill {
 
     private String status;
 
+    @NotNull(message = "Table is required")
     @ManyToOne
     private RestaurantTable table;
 
